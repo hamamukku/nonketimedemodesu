@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>トップ｜NonkeTime</title>
+
+  <!-- 既存テーマ -->
+  <link rel="stylesheet" href="assets/theme.css">
+
+  <!-- 追加：共通UIスタイル（カード/バッジ/帯/トースト/カルーセル） -->
+  <link rel="stylesheet" href="assets/css/ui.components.css">
+  <!-- ※.cs拡張子で読みたい場合はこちらに差し替え可 -->
+  <!-- <link rel="stylesheet" href="assets/css/ui.components.cs"> -->
+
+  <style>
+    /* 軽微なレイアウト補助：ヒーロー2カラム／ニュース枠ウィンドウ表示 */
+    .visual .hero {
+      display:flex;justify-content:space-between;flex-wrap:wrap;align-items:flex-start;gap:16px;
+    }
+    .hero-left {flex:1 1 320px;min-width:280px}
+    .hero-right {flex:1 1 280px;max-width:380px}
+    .news-window {max-height:220px;overflow:auto;padding-left:1em}
+    .news-window li{margin:.25em 0}
+    /* モデルカードの画像比率統一 */
+    .models .card-img{aspect-ratio:3/4;object-fit:cover}
+    .section h2{margin:0 0 .5rem}
+  </style>
+</head>
+
+<!-- 会員帯の見た目切替用：role-guest / role-free / role-premium -->
+<body class="role-guest">
+  <div id="wrapper">
+    <header class="header">
+      <div class="container hc">
+        <h1 class="logo"><a href="index.html">NonkeTime</a></h1>
+        <nav class="gnav">
+          <a href="index.html" class="is-current">TOP</a>
+          <a href="about.html">とは</a>
+          <a href="flow.html">ご利用の流れ</a>
+          <a href="models.html">モデル一覧</a>
+          <a href="price.html">料金</a>
+          <a href="apply.html" class="btn">モデル募集</a>
+        </nav>
+      </div>
+      <!-- 上部ステータス帯（見た目先行。必要なければ削除可） -->
+      <div class="container">
+        <div class="member-band" aria-live="polite">
+          <span>ログインしていません</span>
+          <a class="tab" href="auth-register.html">会員登録（無料）</a>
+          <a class="tab" href="auth-login.html">ログイン</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ヒーロー：左＝キャッチ、右＝お知らせ（クライアント要望に合わせて配置） -->
+      <section class="visual">
+        <div class="container hero">
+          <!-- 左カラム：キャッチコピー -->
+          <div class="hero-left">
+            <h2 style="font-size:1.8rem; line-height:1.3; margin:.25em 0;">
+              ノンケ男性モデルと過ごす、やさしい時間。
+            </h2>
+            <p class="breadcrumb" style="font-size:1.05rem;margin:.25em 0;">
+              検索 → メッセージ調整 → 合意 → 予約（事前決済） → 当日 → 評価
+            </p>
+          </div>
+
+          <!-- 右カラム：お知らせ（ヘッダー直下／キャッチ右に配置） -->
+          <aside class="hero-right card" style="padding:12px;">
+            <h3 style="margin:0 0 8px;font-size:1.2rem;">お知らせ・更新情報</h3>
+            <ul id="news-list" class="news-window">
+              <!-- JSで最新5件を差し込み。dataがなければ下のフォールバックが表示されます -->
+            </ul>
+            <noscript>
+              <ul class="news-window">
+                <li>8/xx モデルAを追加しました</li>
+                <li>8/xx 夏のキャンペーンを開始しました</li>
+              </ul>
+            </noscript>
+            <p style="margin-top:8px;text-align:right;">
+              <a class="tab" href="news.html" style="font-size:1.0rem;">すべて見る</a>
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- モデル一覧（TOPに全体像を配置／NEW/おすすめバッジは見た目先行） -->
+      <section class="container section">
+        <h2>モデル一覧</h2>
+        <div id="models-grid" class="grid models card-grid">
+          <!-- JSで生成。dataがない場合はプレースホルダを表示 -->
+        </div>
+        <div id="models-fallback" class="card-grid" style="display:none">
+          <article class="card">
+            <span class="badge badge--new">NEW</span>
+            <img class="card-img" src="assets/img/placeholder-3x4.jpg" alt="">
+            <div class="card-body">
+              <div>山田 太郎 / 22 / 関東 / フレッシュ</div>
+            </div>
+          </article>
+          <article class="card">
+            <span class="badge badge--pickup">おすすめ</span>
+            <img class="card-img" src="assets/img/placeholder-3x4.jpg" alt="">
+            <div class="card-body">
+              <div>佐藤 次郎 / 24 / 関西 / レギュラー</div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="assets/img/placeholder-3x4.jpg" alt="">
+            <div class="card-body">
+              <div>鈴木 一真 / 21 / 東海 / フレッシュ</div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- サービスフロー（テキスト版：TOPでは要点のみ） -->
+      <section class="container section">
+        <p class="sub">
+          モデル検索 → モデルとメッセージで日時・場所・所要時間などをすり合わせ → 合意後に予約（事前決済） → 当日体験 → 評価
+        </p>
+        <ol class="list">
+          <li><strong>モデル検索</strong></li>
+          <li><strong>メッセージ調整</strong></li>
+          <li><strong>合意 → 予約</strong></li>
+          <li><strong>事前決済</strong></li>
+          <li><strong>当日 → 評価</strong></li>
+        </ol>
+        <p class="sub">外部連絡先交換は禁止。運営がやり取りを確認。</p>
+      </section>
+
+      <!-- 料金（表記ルールを要件どおりに修正済み） -->
+      <section class="container section">
+        <h2>料金</h2>
+        <div class="card">
+          <table class="table">
+            <tr><th>ランク</th><th>基本料金（1時間単位）</th></tr>
+            <tr><td>プレミアム</td><td>¥8,000</td></tr>
+            <tr><td>スペシャル</td><td>¥6,000</td></tr>
+            <tr><td>レギュラー</td><td>¥4,500</td></tr>
+            <tr><td>フレッシュ</td><td>¥3,500</td></tr>
+          </table>
+          <div class="sub" style="padding:8px 12px;">
+            <p>・交通費：全国一律 ¥3,000</p>
+            <p>・任意チップ可／追加料金なし（事前決済）</p>
+            <p>・当日の飲食代・施設利用料などはお客様負担です</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 安心・安全 -->
+      <section class="container section">
+        <h2>安心・安全の取り組み</h2>
+        <div class="grid" style="grid-template-columns: repeat(2, minmax(0,1fr)); gap:16px">
+          <div class="card"><h3>健全運営</h3><p class="sub">非アダルト。規約違反対応を徹底。</p></div>
+          <div class="card"><h3>事前決済</h3><p class="sub">金銭トラブルを防止。</p></div>
+          <div class="card"><h3>サイト内メッセージ</h3><p class="sub">外部連絡先交換は禁止。</p></div>
+          <div class="card"><h3>運営監視</h3><p class="sub">やり取りを確認し安全を確保。</p></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <ul class="foot-links">
+          <li><a href="index.html">TOP</a></li>
+          <li><a href="about.html">とは</a></li>
+          <li><a href="flow.html">ご利用の流れ</a></li>
+          <li><a href="models.html">モデル一覧</a></li>
+          <li><a href="price.html">料金</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+        </ul>
+        <p class="copy">© 2025 NonkeTime</p>
+      </div>
+      <a href="#wrapper" class="to-top" aria-label="ページ上部へ">▲</a>
+    </footer>
+  </div>
+
+  <!-- 既存データ＆テーマ -->
+  <script src="assets/data.js"></script>
+  <script src="assets/theme.js"></script>
+
+  <!-- 追加：共通UIスクリプト -->
+  <script src="assets/js/ui.helpers.js" defer></script>
+  <script src="assets/js/ui.carousel.js" defer></script>
+  <script src="assets/js/ui.chat.js" defer></script>
+
+  <!-- 軽量レンダリング（data.js が提供する配列があればそれを利用／なければフォールバック表示） -->
+  <script>
+    // ニュース：window.NEWS があれば最新5件を表示
+    (function(){
+      const ul = document.getElementById('news-list');
+      if(!ul) return;
+      const list = (window.NEWS || []).slice(0,5);
+      if(list.length){
+        ul.innerHTML = list.map(it=>`<li>${it}</li>`).join('');
+      }else{
+        ul.innerHTML = `<li>最新のお知らせはありません</li>`;
+      }
+    })();
+
+    // モデル一覧：window.MODELS があればカード化、なければフォールバックを見せる
+    (function(){
+      const wrap = document.getElementById('models-grid');
+      const fallback = document.getElementById('models-fallback');
+      if(!wrap) return;
+
+      const models = (window.MODELS || []);
+      if(models.length === 0){
+        fallback && (fallback.style.display = '');
+        return;
+      }
+
+      const badge = (m)=>{
+        if(m.isNew) return `<span class="badge badge--new">NEW</span>`;
+        if(m.isPickup) return `<span class="badge badge--pickup">おすすめ</span>`;
+        if(m.rank === 'プレミアム') return `<span class="badge badge--rank">上位</span>`;
+        return '';
+      };
+
+      wrap.innerHTML = models.map(m=>`
+        <article class="card">
+          ${badge(m)}
+          <img class="card-img" src="${m.image || 'assets/img/placeholder-3x4.jpg'}" alt="">
+          <div class="card-body">
+            <div>${m.name || '匿名'} / ${m.age || '-'} / ${m.area || '-'} / ${m.rank || '-'}</div>
+          </div>
+        </article>
+      `).join('');
+    })();
+  </script>
+</body>
+</html>
